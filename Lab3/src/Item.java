@@ -1,5 +1,8 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Item {
 
@@ -10,8 +13,8 @@ public class Item {
 	 try
 	 {
 	 Class.forName("com.mysql.jdbc.Driver");
-	 con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test",
-	 "root", "");
+	 con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/item","root","");
+	 
 	 //For testing
 	 System.out.print("Successfully connected");
 	 }
@@ -44,7 +47,7 @@ public class Item {
 	 preparedStmt.setString(3, name);
 	 preparedStmt.setDouble(4, Double.parseDouble(price));
 	 preparedStmt.setString(5, desc); 
-	6
+	
 	//execute the statement
 	 preparedStmt.execute();
 	 con.close();
@@ -76,6 +79,7 @@ public class Item {
 	 String query = "select * from items";
 	 Statement stmt = con.createStatement();
 	 ResultSet rs = stmt.executeQuery(query);
+	 
 	 // iterate through the rows in the result set
 	 while (rs.next())
 	 {
@@ -84,11 +88,12 @@ public class Item {
 	 String itemName = rs.getString("itemName");
 	 String itemPrice = Double.toString(rs.getDouble("itemPrice"));
 	 String itemDesc = rs.getString("itemDesc");
+	 
 	 // Add a row into the html table
 	 output += "<tr><td>" + itemCode + "</td>";
 	 output += "<td>" + itemName + "</td>";
 	 output += "<td>" + itemPrice + "</td>"; 
-	10
+	
 	output += "<td>" + itemDesc + "</td>";
 	 // buttons
 	 output += "<td><input name='btnUpdate' "
